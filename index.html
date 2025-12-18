@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSwan Digital Intake</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #3dbfbf;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #064878;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-container h2 {
+            color: #064878;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #064878;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #70d0d4;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #064878;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 8px;
+            width: auto;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+            width: auto;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .url-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .url-prefix {
+            padding: 12px;
+            background: #f0f0f0;
+            border: 2px solid #70d0d4;
+            border-radius: 8px;
+            white-space: nowrap;
+            color: #064878;
+            font-weight: 600;
+        }
+
+        .url-input-group input {
+            flex: 1;
+        }
+
+        .budget-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .budget-prefix {
+            padding: 12px;
+            background: #f0f0f0;
+            border: 2px solid #70d0d4;
+            border-radius: 8px;
+            color: #064878;
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+
+        .budget-input-group input {
+            flex: 1;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #064878 0%, #70d0d4 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>WebSwan Digital Intake</h1>
+        
+        <button class="cta-button" onclick="document.getElementById('marketing').scrollIntoView({behavior: 'smooth'})">
+            Get Started
+        </button>
+    </div>
+
+    <div class="form-container" id="marketing">
+        <h2>Let's Build Something Amazing</h2>
+        <form id="intakeForm" action="https://formspree.io/f/xbdrrwjv" method="POST">
+            <div class="form-group">
+                <label for="businessName">Business Name *</label>
+                <input type="text" id="businessName" name="businessName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Do you have a website? *</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="hasWebsite" value="yes" onchange="toggleWebsiteUrl()" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="hasWebsite" value="no" onchange="toggleWebsiteUrl()" required> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group hidden" id="websiteUrlGroup">
+                <label for="websiteUrl">Website URL</label>
+                <div class="url-input-group">
+                    <span class="url-prefix">https://www.</span>
+                    <input type="text" id="websiteUrl" name="websiteUrl" placeholder="yourdomain.com">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="businessLength">How long have you been in business? *</label>
+                <select id="businessLength" name="businessLength" required>
+                    <option value="">Select...</option>
+                    <option value="startup">Start-up to 6 months</option>
+                    <option value="6-12">6 months to 1 year</option>
+                    <option value="1-2">1 to 2 years</option>
+                    <option value="2-5">2 to 5 years</option>
+                    <option value="5-10">5 to 10 years</option>
+                    <option value="10+">10+ years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="businessNature">Nature of Business *</label>
+                <select id="businessNature" name="businessNature" required onchange="toggleOtherNature()">
+                    <option value="">Select...</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="lawyer">Lawyer</option>
+                    <option value="chiropractor">Chiropractor</option>
+                    <option value="orthopedist">Orthopedist</option>
+                    <option value="dermatologist">Dermatologist</option>
+                    <option value="plastic-surgeon">Plastic Surgeon</option>
+                    <option value="cosmetic-surgeon">Cosmetic Surgeon</option>
+                    <option value="laser-hair-removal">Laser Hair Removal</option>
+                    <option value="realtor">Realtor</option>
+                    <option value="mortgage-broker">Mortgage Broker</option>
+                    <option value="accountant">Accountant/Tax Preparer</option>
+                    <option value="beautician">Beautician</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group hidden" id="otherNatureGroup">
+                <label for="otherNature">Please specify (max 100 words)</label>
+                <textarea id="otherNature" name="otherNature" maxlength="600" placeholder="Describe your business..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="bestTimeToCall">Best Time to Call *</label>
+                <select id="bestTimeToCall" name="bestTimeToCall" required>
+                    <option value="">Select...</option>
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="timezone">Time Zone *</label>
+                <select id="timezone" name="timezone" required>
+                    <option value="">Select...</option>
+                    <option value="eastern">Eastern</option>
+                    <option value="central">Central</option>
+                    <option value="mountain">Mountain</option>
+                    <option value="pacific">Pacific</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bestWayToCall">Best Way to Call *</label>
+                <select id="bestWayToCall" name="bestWayToCall" required>
+                    <option value="">Select...</option>
+                    <option value="call">Call</option>
+                    <option value="text">Text</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Services Interested In * (select all that apply)</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="services" value="web-design"> Web Design
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="landing-page"> Landing Page
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="phone-app-frontend"> Phone Application (Front-end Only)
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="advertising"> Advertising
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="seo"> SEO
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="logo"> Logo
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="web-app"> Web Application
+                    </label>
+                    <label>
+                        <input type="checkbox" name="services" value="other" onchange="toggleOtherService()"> Other
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group hidden" id="otherServiceGroup">
+                <label for="otherService">Please specify (max 100 words)</label>
+                <textarea id="otherService" name="otherService" maxlength="600" placeholder="Describe the service you're interested in..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="budget">What is your budget? *</label>
+                <select id="budget" name="budget" required onchange="toggleOtherBudget()">
+                    <option value="">Select...</option>
+                    <option value="500">$500</option>
+                    <option value="600-800">$600 to $800</option>
+                    <option value="801-1000">$801 to $1,000</option>
+                    <option value="1001-5000">$1,001 to $5,000</option>
+                    <option value="5001-10000">$5,001 to $10,000</option>
+                    <option value="10000+">$10,000+</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group hidden" id="otherBudgetGroup">
+                <label for="otherBudget">Please specify amount</label>
+                <div class="budget-input-group">
+                    <span class="budget-prefix">$</span>
+                    <input type="text" id="otherBudget" name="otherBudget" placeholder="Enter amount">
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Submit Your Information</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleWebsiteUrl() {
+            const hasWebsite = document.querySelector('input[name="hasWebsite"]:checked');
+            const websiteUrlGroup = document.getElementById('websiteUrlGroup');
+            
+            if (hasWebsite && hasWebsite.value === 'yes') {
+                websiteUrlGroup.classList.remove('hidden');
+                document.getElementById('websiteUrl').required = true;
+            } else {
+                websiteUrlGroup.classList.add('hidden');
+                document.getElementById('websiteUrl').required = false;
+                document.getElementById('websiteUrl').value = '';
+            }
+        }
+
+        function toggleOtherNature() {
+            const businessNature = document.getElementById('businessNature');
+            const otherNatureGroup = document.getElementById('otherNatureGroup');
+            
+            if (businessNature.value === 'other') {
+                otherNatureGroup.classList.remove('hidden');
+                document.getElementById('otherNature').required = true;
+            } else {
+                otherNatureGroup.classList.add('hidden');
+                document.getElementById('otherNature').required = false;
+                document.getElementById('otherNature').value = '';
+            }
+        }
+
+        function toggleOtherService() {
+            const otherCheckbox = document.querySelector('input[name="services"][value="other"]');
+            const otherServiceGroup = document.getElementById('otherServiceGroup');
+            
+            if (otherCheckbox.checked) {
+                otherServiceGroup.classList.remove('hidden');
+                document.getElementById('otherService').required = true;
+            } else {
+                otherServiceGroup.classList.add('hidden');
+                document.getElementById('otherService').required = false;
+                document.getElementById('otherService').value = '';
+            }
+        }
+
+        function toggleOtherBudget() {
+            const budget = document.getElementById('budget');
+            const otherBudgetGroup = document.getElementById('otherBudgetGroup');
+            
+            if (budget.value === 'other') {
+                otherBudgetGroup.classList.remove('hidden');
+                document.getElementById('otherBudget').required = true;
+            } else {
+                otherBudgetGroup.classList.add('hidden');
+                document.getElementById('otherBudget').required = false;
+                document.getElementById('otherBudget').value = '';
+            }
+        }
+
+        document.getElementById('intakeForm').addEventListener('submit', function(e) {
+            // Check if at least one service is selected
+            const servicesChecked = document.querySelectorAll('input[name="services"]:checked');
+            if (servicesChecked.length === 0) {
+                e.preventDefault();
+                alert('Please select at least one service you are interested in.');
+                return;
+            }
+            
+            // Form will now submit to Formspree
+            // The success message will be shown by Formspree's default behavior
+        });
+    </script>
+</body>
+</html>
